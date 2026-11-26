@@ -104,7 +104,10 @@ function socialKeys(t) {
       } else if (host === "t.me" || host === "telegram.me") {
         if (seg[0]) keys.add("tg:" + seg[0].toLowerCase());
       } else if (!GENERIC.has(host) && !/pump\.fun$|dexscreener|ipfs|pinata|github\.io$/.test(host)) {
-        keys.add("web:" + host + (seg.length && /linktr|carrd|bio\.link/.test(host) ? "/" + seg[0] : ""));
+        // shared platforms only count when the exact page matches
+        const platform = /linktr|carrd|bio\.link|change\.org|medium\.com|substack|notion|gitbook|youtube|instagram|tiktok|reddit|github\.com/.test(host);
+        if (platform && !seg.length) return;
+        keys.add("web:" + host + (platform ? "/" + seg.slice(0, 3).join("/").toLowerCase() : ""));
       }
     } catch {}
   };
