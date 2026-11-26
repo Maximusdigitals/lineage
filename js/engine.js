@@ -152,7 +152,7 @@ async function pumpSearch(q) {
     const list = await getJSON(`${SITE.backendUrl.replace(/\/$/, "")}/pump/search?q=${encodeURIComponent(q)}`, { retries: 0, timeout: 8000 });
     return {
       status: "ok",
-      tokens: (list || []).map((c) => ({
+      tokens: (list || []).filter((c) => isSolAddress(c.mint)).map((c) => ({
         address: c.mint, name: c.name, symbol: c.symbol, createdAt: c.created_timestamp, mcap: c.usd_market_cap || 0,
         liquidity: 0, volume24: 0, image: ipfsRewrite(c.image_uri), socials: c.twitter ? [{ url: c.twitter }] : [],
         websites: c.website ? [{ url: c.website }] : [], meta: { description: c.description, twitter: c.twitter, website: c.website, telegram: c.telegram },

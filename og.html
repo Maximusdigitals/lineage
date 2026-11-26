@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<link rel="stylesheet" href="css/style.css">
+<style>
+ body{width:1200px;height:630px;overflow:hidden;background:#0d0c0a}
+ .og{position:relative;width:1200px;height:630px;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between;
+   background:radial-gradient(800px 500px at 85% 10%,rgba(233,220,192,.08),transparent 60%)}
+ .og::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(236,230,218,.035) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(236,230,218,.035) 1px,transparent 1px) 0 0/48px 48px;
+   mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 70%)}
+ .row{display:flex;justify-content:space-between;align-items:center;position:relative}
+ .b{display:flex;gap:14px;align-items:center;font:400 italic 34px/1 var(--serif)}
+ .st{font:500 15px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blood);border:1px solid var(--blood);border-radius:99px;padding:11px 18px}
+ h1{position:relative;font:300 150px/.88 var(--serif);letter-spacing:-.05em}
+ h1 em{color:var(--og)}
+ .f{font:400 18px/1 var(--mono);color:var(--mute)}
+ .seal{position:absolute;right:80px;top:120px;width:170px}
+</style></head><body>
+<div class="og">
+  <div class="row"><span class="b"><span class="mono-mark" style="width:40px;height:40px;font-size:13px" data-site="mark">VH</span><span data-site="name">Vamp Hunter</span></span><span class="st">Likely vamp · or OG</span></div>
+  <div class="seal"><svg viewBox="0 0 200 200"><defs><path id="p" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#p" textLength="488">PROVENANCE · LINEAGE · RECEIPTS · TIMESTAMPS · </textPath></text></svg><span class="seal-core"><i></i></span></div>
+  <h1>Every coin<br>has an <em>original.</em></h1>
+  <div class="row f"><span>Paste a Solana CA → get the verdict, the OG and the receipts</span><span>Solana</span></div>
+</div>
+<script type="module">import {SITE} from "./config.js";document.querySelectorAll('[data-site="name"]').forEach(n=>n.textContent=SITE.name);document.querySelectorAll('[data-site="mark"]').forEach(n=>n.textContent=SITE.mark);</script>
+</body></html>
