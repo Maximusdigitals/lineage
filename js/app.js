@@ -331,7 +331,8 @@ function render(r) {
   const link = `${SITE.url}?ca=${t.address}`;
   const via = SITE.xHandle ? `&via=${encodeURIComponent(SITE.xHandle.replace(/^@/, ""))}` : "";
   let text;
-  if (r.kind === "vamp") text = `$${t.symbol} looks like a likely vamp of $${og.symbol}.\n\nLaunched ${fmtGap(og.gap)} later${og.mcapRatio >= 1.5 ? `, ${fmtRatio(og.mcapRatio)} smaller` : ""}. ${r.confidence}/100 confidence.\n\nReceipts:`;
+  const sameTk = t.symbol.toLowerCase() === og?.symbol?.toLowerCase();
+  if (r.kind === "vamp") text = `${sameTk ? `This $${t.symbol} (${short(t.address)})` : `$${t.symbol}`} looks like a likely vamp of ${sameTk ? "the original " : ""}$${og.symbol}.\n\nLaunched ${fmtGap(og.gap)} later${og.mcapRatio >= 1.5 ? `, ${fmtRatio(og.mcapRatio)} smaller` : ""}. ${r.confidence}/100 confidence.\n\nReceipts:`;
   else if (r.kind === "og") text = `$${t.symbol} checks out as a possible OG.${copies.length ? ` ${copies.length} look-alike${copies.length > 1 ? "s" : ""} launched after it.` : ""}\n\nReceipts:`;
   else text = `Ran $${t.symbol} through ${SITE.name}. Verdict: unclear${r.lean ? ` (${r.lean.toLowerCase()})` : ""}.\n\nReceipts:`;
   $("#shareX").href = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link)}${via}`;
