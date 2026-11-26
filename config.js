@@ -10,9 +10,10 @@ export const SITE = {
   description:
     "Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts.",
   url: "https://maximusdigitals.github.io/lineage/",
+  assetVersion: "2",          // bump to cache-bust CSS/JS/images after a release
 
   // ── Future X page (leave blank until the account exists) ──
-  xHandle: "",                         // e.g. "vamphunter" (no @)
+  xHandle: "VampHunterSOL",             // official X account, no @
   xFeedEmbed: false,                   // true → loads the X timeline embed into the feed slot
 
   // ── Optional backend hook ──

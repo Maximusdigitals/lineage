@@ -23,20 +23,38 @@ const DEMOS = [
 ];
 
 /* ── brand from config ── */
+const emblem = (size, cls = "", alt = "") =>
+  `<img class="${cls}" src="assets/brand/emblem-${size}.webp" alt="${esc(alt)}" width="${size}" height="${size}" decoding="async">`;
+
 function applySite() {
   $$('[data-site="name"]').forEach((n) => (n.textContent = SITE.name));
-  $$('[data-site="mark"]').forEach((n) => (n.textContent = SITE.mark));
   const h = SITE.xHandle?.replace(/^@/, "");
   $$("[data-x-follow]").forEach((a) => {
-    if (h) { a.href = `https://x.com/${h}`; a.target = "_blank"; a.rel = "noopener"; }
-    else { a.href = "#field"; a.setAttribute("aria-label", "Follow on X, account coming soon"); }
+    if (h) {
+      a.href = `https://x.com/${h}`; a.target = "_blank"; a.rel = "noopener";
+      a.classList.remove("is-soon");
+    } else if (a.classList.contains("btn-primary")) {
+      // The in-page CTA would only jump to the section it's already in.
+      a.removeAttribute("href");
+      a.classList.add("is-soon");
+      a.setAttribute("aria-disabled", "true");
+      a.setAttribute("role", "text");
+      const lab = a.querySelector("[data-x-label]");
+      if (lab) lab.textContent = "X page coming soon";
+    } else {
+      a.href = "#field";
+      a.setAttribute("aria-label", "X account coming soon — see Field notes");
+    }
   });
   $$("[data-x-handle]").forEach((n) => (n.textContent = h ? `@${h}` : "@ handle coming soon"));
+  $$("[data-x-profile]").forEach((a) => {
+    if (h) { a.href = `https://x.com/${h}`; a.target = "_blank"; a.rel = "noopener me"; a.textContent = `@${h}`; }
+  });
   if (h && SITE.xFeedEmbed) {
     const slot = $("#xFeedSlot");
     slot.classList.add("live");
     slot.innerHTML = `<a class="twitter-timeline" data-theme="dark" data-chrome="noheader nofooter noborders transparent" data-height="520" href="https://twitter.com/${h}">Posts by @${h}</a>`;
-    const s = document.createElement("script"); s.async = true; s.src = "https://platform.twitter.com/widgets.js"; document.body.appendChild(s);
+    const sc = document.createElement("script"); sc.async = true; sc.src = "https://platform.twitter.com/widgets.js"; document.body.appendChild(sc);
   }
 }
 
@@ -50,20 +68,23 @@ function motion() {
   addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30), { passive: true });
   if (!reduced && matchMedia("(hover:hover)").matches) {
     const g = $(".glow");
-    addEventListener("pointermove", (e) => { g.style.setProperty("--gx", e.clientX + "px"); g.style.setProperty("--gy", e.clientY + "px"); }, { passive: true });
-    // magnetic primary buttons
-    document.addEventListener("pointermove", (e) => {
-      const b = e.target.closest?.(".hunt,.btn-primary");
-      $$(".hunt,.btn-primary").forEach((x) => { if (x !== b) x.style.transform = ""; });
+    const magnets = () => $$(".hunt,.btn-primary:not(.is-soon)");
+    const onMove = (e) => {
+      g.style.setProperty("--gx", e.clientX + "px");
+      g.style.setProperty("--gy", e.clientY + "px");
+      const b = e.target.closest?.(".hunt,.btn-primary:not(.is-soon)");
+      magnets().forEach((x) => { if (x !== b) x.style.transform = ""; });
       if (!b) return;
       const r = b.getBoundingClientRect();
       b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.12}px,${(e.clientY - r.top - r.height / 2) * 0.2}px)`;
-    }, { passive: true });
+    };
+    addEventListener("pointermove", onMove, { passive: true });
+    addEventListener("pointerleave", () => magnets().forEach((x) => (x.style.transform = "")), { passive: true });
   }
 }
 
 /* ── live feed + ticker ── */
-let pool = [], feedIdx = 0, feedTimer;
+let pool = [], feedIdx = 0, feedTimer, liveBusy = false;
 function feedItem(t) {
   return `<button class="feed-item" data-ca="${esc(t.address)}" aria-label="Scan ${esc(t.symbol)}">
     ${img(t.image, 72, "", "")}
@@ -71,7 +92,10 @@ function feedItem(t) {
     <span class="r">${fmtUsd(t.mcap)}<b>${ago(t.createdAt)} old</b></span><span class="go" aria-hidden="true">→</span></button>`;
 }
 async function loadLive() {
-  const list = await latestLaunches().catch(() => []);
+  if (liveBusy) return;
+  liveBusy = true;
+  let list = [];
+  try { list = await latestLaunches(); } catch { list = []; } finally { liveBusy = false; }
   if (!list.length) {
     if (!pool.length) $("#feedList").innerHTML = `<li><span class="n" style="color:var(--mute);font-size:13px">Live feed is resting (DexScreener rate limit). It retries in a minute.</span></li>`;
     return;
@@ -163,14 +187,12 @@ async function run(ca, { push = true } = {}) {
   $("#progressFill").style.width = "4%";
   $("#huntBtn").disabled = true;
   res.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-  let seen = 0;
   try {
     const r = await scan(ca, {
       hashImage,
       onStep: (k, label) => {
         const i = STEPS.findIndex((s) => s[0] === k);
         $$("#steps li").forEach((li, j) => { li.className = j < i ? "done" : j === i ? "on" : ""; if (j === i && label) li.textContent = label; });
-        seen = Math.max(seen, i);
         $("#progressFill").style.width = `${Math.round(((i + 1) / (STEPS.length + 0.5)) * 100)}%`;
       },
     });
@@ -232,7 +254,7 @@ function cardHTML(r) {
       ${top ? `<div class="c-bars">${signalBars(top, r.kind)}</div>` : ""}`;
   }
   return `<div class="card k-${r.kind}" id="shareCard"><div class="sheen"></div><div class="c-in">
-    <div class="c-top"><span class="c-brand"><i></i>${esc(SITE.name)}</span><span class="c-stamp">${stamp}</span></div>
+    <div class="c-top"><span class="c-brand">${emblem(64, "c-logo")}${esc(SITE.name)}</span><span class="c-stamp">${stamp}</span></div>
     <div class="c-pair">${pair}</div><div class="c-side">${side}</div>
     <div class="c-foot"><span>${host}</span><span>${short(t.address)} · ${new Date(r.scannedAt).toISOString().slice(0, 16).replace("T", " ")} UTC</span><span class="c-dyor">Likely ≠ certain · DYOR</span></div>
   </div></div>`;
@@ -401,9 +423,11 @@ function wire() {
 
 function fitFoot() {
   const el = $(".foot-big"); if (!el) return;
-  el.style.fontSize = "100px";
-  const w = el.scrollWidth, avail = el.clientWidth * 0.97;
-  el.style.fontSize = Math.min(340, (100 * avail) / w) + "px";
+  el.style.fontSize = "80px";
+  const w = el.scrollWidth;
+  const avail = (el.parentElement?.clientWidth || el.clientWidth) * 0.9; // 0.9 leaves room for italic overhang
+  if (!w || !avail) return;
+  el.style.fontSize = Math.min(320, (80 * avail) / w) + "px";
 }
 
 function init() {

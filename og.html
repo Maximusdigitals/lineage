@@ -1,24 +1,54 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
 <link rel="stylesheet" href="css/style.css">
 <style>
- body{width:1200px;height:630px;overflow:hidden;background:#0d0c0a}
- .og{position:relative;width:1200px;height:630px;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between;
-   background:radial-gradient(800px 500px at 85% 10%,rgba(233,220,192,.08),transparent 60%)}
- .og::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(236,230,218,.035) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(236,230,218,.035) 1px,transparent 1px) 0 0/48px 48px;
-   mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 70%)}
- .row{display:flex;justify-content:space-between;align-items:center;position:relative}
- .b{display:flex;gap:14px;align-items:center;font:400 italic 34px/1 var(--serif)}
- .st{font:500 15px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blood);border:1px solid var(--blood);border-radius:99px;padding:11px 18px}
- h1{position:relative;font:300 150px/.88 var(--serif);letter-spacing:-.05em}
- h1 em{color:var(--og)}
- .f{font:400 18px/1 var(--mono);color:var(--mute)}
- .seal{position:absolute;right:80px;top:120px;width:170px}
-</style></head><body>
+  html,body{margin:0;padding:0;background:#0d0c0a;width:1200px;height:630px;overflow:hidden}
+  .og{position:relative;width:1200px;height:630px;padding:56px 64px 48px;display:grid;
+    grid-template-columns:420px 1fr;grid-template-rows:auto 1fr auto;gap:0 56px;
+    background:
+      radial-gradient(900px 520px at 78% 18%,rgba(233,220,192,.08),transparent 58%),
+      radial-gradient(700px 400px at 8% 90%,rgba(255,68,35,.05),transparent 55%),
+      #0d0c0a}
+  .og::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(rgba(236,230,218,.04) 1px,transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg,rgba(236,230,218,.04) 1px,transparent 1px) 0 0/48px 48px;
+    mask-image:radial-gradient(ellipse at 70% 40%,#000 8%,transparent 72%);
+    -webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 8%,transparent 72%)}
+  .mark{grid-row:1/4;grid-column:1;align-self:center;justify-self:center;width:400px;height:400px;position:relative}
+  .mark img{width:400px;height:400px;object-fit:cover;border-radius:50%;display:block}
+  .top{grid-column:2;display:flex;justify-content:space-between;align-items:center;position:relative;padding-top:8px}
+  .word{font:400 italic 34px/1 var(--serif);color:var(--bone)}
+  .st{font:500 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blood);
+      border:1px solid var(--blood);border-radius:99px;padding:10px 16px}
+  .copy{grid-column:2;align-self:center;position:relative;padding-bottom:8px}
+  h1{font:300 92px/.9 var(--serif);letter-spacing:-.05em;color:var(--bone);margin:0 0 18px}
+  .tag{font:300 italic 28px/1.2 var(--serif);color:var(--og);margin:0 0 22px}
+  .sub{font:400 16px/1.5 var(--sans);color:var(--bone-2);max-width:460px}
+  .bot{grid-column:2;display:flex;justify-content:space-between;align-items:baseline;position:relative;
+       font:400 15px/1 var(--mono);color:var(--mute);border-top:1px solid var(--line);padding-top:18px}
+</style>
+</head>
+<body>
 <div class="og">
-  <div class="row"><span class="b"><span class="mono-mark" style="width:40px;height:40px;font-size:13px" data-site="mark">VH</span><span data-site="name">Vamp Hunter</span></span><span class="st">Likely vamp · or OG</span></div>
-  <div class="seal"><svg viewBox="0 0 200 200"><defs><path id="p" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#p" textLength="488">PROVENANCE · LINEAGE · RECEIPTS · TIMESTAMPS · </textPath></text></svg><span class="seal-core"><i></i></span></div>
-  <h1>Every coin<br>has an <em>original.</em></h1>
-  <div class="row f"><span>Paste a Solana CA → get the verdict, the OG and the receipts</span><span>Solana</span></div>
+  <div class="mark"><img src="assets/brand/emblem.webp" alt=""></div>
+  <div class="top">
+    <span class="word" data-site="name">Vamp Hunter</span>
+    <span class="st">Likely vamp · or OG</span>
+  </div>
+  <div class="copy">
+    <h1>Every coin<br>has an <em>original.</em></h1>
+    <p class="tag">find the og. expose the copy.</p>
+    <p class="sub">Paste a Solana contract address. Get the verdict, the original, and the receipts.</p>
+  </div>
+  <div class="bot"><span>maximusdigitals.github.io/lineage</span><span>On Solana</span></div>
 </div>
-<script type="module">import {SITE} from "./config.js";document.querySelectorAll('[data-site="name"]').forEach(n=>n.textContent=SITE.name);document.querySelectorAll('[data-site="mark"]').forEach(n=>n.textContent=SITE.mark);</script>
-</body></html>
+<script type="module">
+  import {SITE} from "./config.js";
+  document.querySelectorAll('[data-site="name"]').forEach(n=>n.textContent=SITE.name);
+</script>
+</body>
+</html>

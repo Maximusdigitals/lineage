@@ -11,23 +11,34 @@
 <meta property="og:title" content="Vamp Hunter: is this coin the original?" />
 <meta property="og:description" content="Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts." />
 <meta property="og:url" content="https://maximusdigitals.github.io/lineage/" />
-<meta property="og:image" content="https://maximusdigitals.github.io/lineage/assets/og.png" />
+<meta property="og:image" content="https://maximusdigitals.github.io/lineage/assets/og.jpg?v=2" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Vamp Hunter: is this coin the original?" />
 <meta name="twitter:description" content="Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts." />
-<meta name="twitter:image" content="https://maximusdigitals.github.io/lineage/assets/og.png" />
-<meta name="twitter:site" content="" />
+<meta name="twitter:image" content="https://maximusdigitals.github.io/lineage/assets/og.jpg?v=2" />
+<meta name="twitter:site" content="@VampHunterSOL" />
+<meta name="twitter:creator" content="@VampHunterSOL" />
 <!-- META:END -->
 <meta name="theme-color" content="#0d0c0a" />
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Vamp Hunter" />
+<link rel="icon" href="assets/favicon.ico?v=2" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2" />
+<link rel="manifest" href="site.webmanifest?v=2" />
 <link rel="preload" href="assets/fonts/zodiak-300.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/brand/emblem-256.webp?v=2" as="image" type="image/webp" />
 <link rel="preconnect" href="https://api.dexscreener.com" />
 <link rel="preconnect" href="https://wsrv.nl" />
-<link rel="stylesheet" href="css/style.css" />
-<script type="module" src="js/app.js"></script>
+<link rel="stylesheet" href="css/style.css?v=2" />
+<script type="module" src="js/app.js?v=2"></script>
 </head>
 <body>
 <a class="skip" href="#hunt">Skip to the scanner</a>
@@ -35,8 +46,11 @@
 <div class="glow" aria-hidden="true"></div>
 
 <header class="nav" id="top">
-  <a class="brand" href="./" aria-label="Home">
-    <span class="mono-mark" data-site="mark">VH</span>
+  <a class="brand" href="./" aria-label="Vamp Hunter home">
+    <picture>
+      <source type="image/webp" srcset="assets/brand/mark.webp?v=2" />
+      <img class="brand-mark" src="assets/brand/mark-64.png?v=2" width="36" height="36" alt="" decoding="async" />
+    </picture>
     <span class="brand-name" data-site="name">Vamp Hunter</span>
   </a>
   <nav class="nav-links" aria-label="Sections">
@@ -46,7 +60,7 @@
   </nav>
   <div class="nav-right">
     <span class="live-pill" title="Live data from DexScreener"><i></i>Live</span>
-    <a class="btn-x" data-x-follow href="#field" aria-label="Follow on X">
+    <a class="btn-x" data-x-follow href="https://x.com/VampHunterSOL" target="_blank" rel="noopener me" aria-label="Follow @VampHunterSOL on X">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.7 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z"/></svg>
       <span>Follow</span>
     </a>
@@ -82,7 +96,9 @@
     <div class="seal reveal" aria-hidden="true">
       <svg viewBox="0 0 200 200"><defs><path id="sealPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
         <text><textPath href="#sealPath" textLength="488">PROVENANCE · LINEAGE · RECEIPTS · TIMESTAMPS · </textPath></text></svg>
-      <span class="seal-core"><i></i></span>
+      <span class="seal-core">
+        <img src="assets/brand/emblem-256.webp?v=2" srcset="assets/brand/emblem-128.webp?v=2 128w, assets/brand/emblem-256.webp?v=2 256w, assets/brand/emblem-512.webp?v=2 512w" sizes="140px" width="140" height="140" alt="" decoding="async" />
+      </span>
     </div>
     <aside class="feed reveal" aria-label="Launching now on Solana">
       <div class="feed-head">
@@ -151,16 +167,16 @@
     <div class="field-grid">
       <div class="x-slot reveal" id="xFeedSlot" aria-label="X feed">
         <div class="x-slot-inner">
-          <svg class="x-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.7 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z"/></svg>
-          <p class="x-slot-title">The feed opens soon.</p>
-          <p class="x-slot-sub">Posts from our X account will appear here.</p>
+          <img class="x-pfp" src="assets/brand/emblem-sol-256.webp?v=2" srcset="assets/brand/emblem-sol-128.webp?v=2 128w, assets/brand/emblem-sol-256.webp?v=2 256w" sizes="120px" width="120" height="120" alt="Vamp Hunter" decoding="async" />
+          <p class="x-slot-title">Follow along on X.</p>
+          <p class="x-slot-sub">Daily vamp reports and the week's biggest copycats, from <a class="x-handle-link" data-x-profile href="https://x.com/VampHunterSOL" target="_blank" rel="noopener me">@VampHunterSOL</a>.</p>
         </div>
       </div>
       <div class="x-cta reveal">
         <p class="x-cta-big">Catch the copy <em>before</em> it catches you.</p>
-        <a class="btn-primary" data-x-follow href="#field"><span data-x-label>Follow on X</span>
+        <a class="btn-primary" data-x-follow href="https://x.com/VampHunterSOL" target="_blank" rel="noopener me"><span data-x-label>Follow on X</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
-        <p class="x-cta-note mono" data-x-handle>@ handle coming soon</p>
+        <p class="x-cta-note mono" data-x-handle>@VampHunterSOL</p>
       </div>
     </div>
   </section>
@@ -169,8 +185,9 @@
 <footer class="foot">
   <div class="foot-big" data-site="name" aria-hidden="true">Vamp Hunter</div>
   <div class="foot-row">
-    <p>Likely is not certain. This is research, not financial advice, and never an accusation. Do your own research.</p>
+    <p><img class="foot-mark" src="assets/brand/emblem-64.webp?v=2" width="28" height="28" alt="" decoding="async" />Likely is not certain. This is research, not financial advice, and never an accusation. Do your own research.</p>
     <p class="mono">Data · DexScreener · Solana RPC · IPFS</p>
+    <a class="foot-x" data-x-follow href="https://x.com/VampHunterSOL" target="_blank" rel="noopener me">@VampHunterSOL on X</a>
     <a href="#top" class="mono">Back to top ↑</a>
   </div>
 </footer>

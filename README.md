@@ -33,3 +33,6 @@ After changing it, run `node scripts/apply-config.mjs` so the static `<title>` a
 - `worker/pump-proxy.js`: optional backend (pump.fun + future X API)
 
 Fonts: Zodiak and Switzer (Fontshare, ITF Free Font License), Geist Mono (OFL). Not financial advice.
+
+## Brand
+The fang-V emblem and banner live in `assets/brand/`. After renaming, re-shoot the social card from `og.html` (`assets/og.jpg`, 1200×630). Favicons and the Apple touch icon are generated from the emblem. Bump `assetVersion` in `config.js` and re-run `node scripts/apply-config.mjs` so browsers pick up the new files.
