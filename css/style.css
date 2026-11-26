@@ -333,7 +333,8 @@ em{font-style:italic}
   .c-bars{gap:2.4cqw}
   .bar{grid-template-columns:19cqw 1fr 9cqw;font-size:2.5cqw;gap:3cqw}
   .bar .tr{height:.8cqw}
-  .c-foot{font-size:2.3cqw;padding-top:4cqw;margin-top:4cqw}
+  .c-foot{font-size:2.3cqw;padding-top:4cqw;margin-top:4cqw;flex-wrap:wrap;gap:2cqw 4cqw}
+  .c-dyor{width:100%;color:var(--mute-2)}
   .c-copies img,.c-copies .ph{width:12cqw;height:12cqw;margin-left:-3.5cqw}
   .c-copies .more{font-size:3cqw}
 }

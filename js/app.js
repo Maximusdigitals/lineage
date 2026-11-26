@@ -222,7 +222,7 @@ function cardHTML(r) {
     const copies = r.candidates.filter((c) => c.gap != null && c.gap < 0 && c.match >= 0.6);
     pair = `${entity(t, r.kind === "og" ? "The original?" : "Under the glass", "og")}
       <div class="c-mid"><span class="gapl">copies after</span><span class="gapv">${copies.length}</span><span class="rule"></span></div>
-      <div class="c-ent sus"><span class="c-role">Look-alikes since</span><div class="c-copies">${copies.slice(0, 4).map((c) => img(c.image, 160)).join("") || '<span class="ph">0</span>'}${copies.length > 4 ? `<span class="more">+${copies.length - 4}</span>` : ""}</div>
+      <div class="c-ent sus"><span class="c-role">Look-alikes since</span><div class="c-copies">${(() => { const w = copies.filter((c) => c.image).slice(0, 4); return (w.map((c) => img(c.image, 160)).join("") || '<span class="ph">0</span>') + (copies.length > w.length ? `<span class="more">+${copies.length - w.length}</span>` : ""); })()}</div>
       <div class="c-meta">${copies.length ? `first copy ${fmtGap(Math.min(...copies.map((c) => -c.gap)))} after` : "none found yet"}</div></div>`;
     const top = copies[0] || r.candidates[0];
     side = `<div class="c-verdict">${r.kind === "og" ? `No earlier coin<br>found. <em>Possible OG.</em>` : `<em>Unclear.</em><br>${esc(r.lean || "Not enough signal")}`}</div>
@@ -234,7 +234,7 @@ function cardHTML(r) {
   return `<div class="card k-${r.kind}" id="shareCard"><div class="sheen"></div><div class="c-in">
     <div class="c-top"><span class="c-brand"><i></i>${esc(SITE.name)}</span><span class="c-stamp">${stamp}</span></div>
     <div class="c-pair">${pair}</div><div class="c-side">${side}</div>
-    <div class="c-foot"><span>${host}</span><span>${short(t.address)} · ${new Date(r.scannedAt).toISOString().slice(0, 16).replace("T", " ")} UTC</span><span>Likely ≠ certain · DYOR</span></div>
+    <div class="c-foot"><span>${host}</span><span>${short(t.address)} · ${new Date(r.scannedAt).toISOString().slice(0, 16).replace("T", " ")} UTC</span><span class="c-dyor">Likely ≠ certain · DYOR</span></div>
   </div></div>`;
 }
 
