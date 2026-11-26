@@ -9,7 +9,7 @@ export const SITE = {
   tagline: "Every coin has an original.",
   description:
     "Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts.",
-  url: "https://maximusdigitals.github.io/lineage/",
+  url: "https://vamphunter.xyz/",
   assetVersion: "2",          // bump to cache-bust CSS/JS/images after a release
 
   // ── Future X page (leave blank until the account exists) ──

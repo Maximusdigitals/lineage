@@ -2,7 +2,7 @@
 
 Paste a Solana memecoin contract address → get a verdict (**Likely vamp of $X**, **Possible OG**, or **Unclear**), a confidence score, the likely original, a timeline and the receipts.
 
-Live: https://maximusdigitals.github.io/lineage/
+Live: https://vamphunter.xyz/
 
 ## Rename / rebrand
 Everything lives in **`config.js`** (name, monogram, tagline, URL, X handle, backend URL).
