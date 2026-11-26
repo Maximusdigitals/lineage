@@ -401,7 +401,7 @@ function wire() {
 function fitFoot() {
   const el = $(".foot-big"); if (!el) return;
   el.style.fontSize = "100px";
-  const w = el.scrollWidth, avail = el.parentElement.clientWidth - 4;
+  const w = el.scrollWidth, avail = el.clientWidth * 0.97;
   el.style.fontSize = Math.min(340, (100 * avail) / w) + "px";
 }
 
