@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!-- META:START (generated from config.js by scripts/apply-config.mjs) -->
+<title>Vamp Hunter: is this coin the original?</title>
+<meta name="description" content="Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Vamp Hunter" />
+<meta property="og:title" content="Vamp Hunter: is this coin the original?" />
+<meta property="og:description" content="Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts." />
+<meta property="og:url" content="https://maximusdigitals.github.io/lineage/" />
+<meta property="og:image" content="https://maximusdigitals.github.io/lineage/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Vamp Hunter: is this coin the original?" />
+<meta name="twitter:description" content="Paste a Solana contract address. See if the coin is a likely vamp, which coin was there first, and the receipts." />
+<meta name="twitter:image" content="https://maximusdigitals.github.io/lineage/assets/og.png" />
+<meta name="twitter:site" content="" />
+<!-- META:END -->
+<meta name="theme-color" content="#0d0c0a" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="assets/fonts/zodiak-300.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/switzer-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://api.dexscreener.com" />
+<link rel="preconnect" href="https://wsrv.nl" />
+<link rel="stylesheet" href="css/style.css" />
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#hunt">Skip to the scanner</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <a class="brand" href="./" aria-label="Home">
+    <span class="mono-mark" data-site="mark">VH</span>
+    <span class="brand-name" data-site="name">Vamp Hunter</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#cases">Cases</a>
+    <a href="#method">Method</a>
+    <a href="#field">Field notes</a>
+  </nav>
+  <div class="nav-right">
+    <span class="live-pill" title="Live data from DexScreener"><i></i>Live</span>
+    <a class="btn-x" data-x-follow href="#field" aria-label="Follow on X">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.7 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z"/></svg>
+      <span>Follow</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- ─────────── HERO ─────────── -->
+  <section class="hero" id="hunt">
+    <div class="hero-copy">
+      <p class="eyebrow reveal"><span class="dot"></span>Provenance for Solana memecoins</p>
+      <h1 class="display reveal" data-split>
+        <span class="line">Every coin</span>
+        <span class="line">has an <em>original.</em></span>
+      </h1>
+      <p class="lede reveal">Paste a contract address. We trace its name, ticker, logo, story and socials back through every earlier launch, then tell you if it's a likely vamp, and of what.</p>
+
+      <form class="scan reveal" id="scanForm" autocomplete="off" novalidate>
+        <label class="sr" for="ca">Solana contract address</label>
+        <div class="scan-field">
+          <span class="scan-prefix" aria-hidden="true">CA</span>
+          <input id="ca" name="ca" inputmode="text" spellcheck="false" autocapitalize="off" autocorrect="off"
+            placeholder="Paste a Solana contract address" aria-describedby="scanHint" />
+          <button type="button" class="paste" id="pasteBtn" aria-label="Paste from clipboard">Paste</button>
+          <button type="submit" class="hunt" id="huntBtn"><span>Hunt</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg></button>
+        </div>
+        <p class="scan-hint" id="scanHint">pump.fun, Raydium, PumpSwap, Meteora. Anything with a Solana mint.</p>
+        <div class="recent" id="recent" hidden></div>
+      </form>
+    </div>
+
+    <div class="seal reveal" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><defs><path id="sealPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+        <text><textPath href="#sealPath" textLength="488">PROVENANCE · LINEAGE · RECEIPTS · TIMESTAMPS · </textPath></text></svg>
+      <span class="seal-core"><i></i></span>
+    </div>
+    <aside class="feed reveal" aria-label="Launching now on Solana">
+      <div class="feed-head">
+        <span class="kicker">Launching now</span>
+        <span class="feed-count mono" id="feedClock">—</span>
+      </div>
+      <ol class="feed-list" id="feedList" aria-live="off">
+        <li class="feed-skel"></li><li class="feed-skel"></li><li class="feed-skel"></li><li class="feed-skel"></li><li class="feed-skel"></li>
+      </ol>
+      <p class="feed-foot">Tap any coin to put it under the glass.</p>
+    </aside>
+  </section>
+
+  <!-- ─────────── TICKER ─────────── -->
+  <div class="ticker" aria-label="Recently profiled Solana coins">
+    <div class="ticker-label"><i></i>New on Solana</div>
+    <div class="ticker-track"><div class="ticker-row" id="tickerRow"></div></div>
+  </div>
+
+  <!-- ─────────── RESULT ─────────── -->
+  <section class="result" id="result" hidden aria-live="polite">
+    <div class="progress" id="progress" hidden>
+      <div class="progress-bar"><i id="progressFill"></i></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+    <div class="error" id="error" hidden role="alert"></div>
+    <div id="report"></div>
+  </section>
+
+  <!-- ─────────── CASES ─────────── -->
+  <section class="cases section" id="cases">
+    <header class="sec-head reveal">
+      <span class="sec-no mono">01</span>
+      <h2 class="sec-title">Open a <em>case file</em></h2>
+      <p class="sec-sub">Real coins, live data. One tap runs the full hunt.</p>
+    </header>
+    <div class="case-grid" id="caseGrid"></div>
+  </section>
+
+  <!-- ─────────── METHOD ─────────── -->
+  <section class="method section" id="method">
+    <header class="sec-head reveal">
+      <span class="sec-no mono">02</span>
+      <h2 class="sec-title">Five signals. <em>One timeline.</em></h2>
+      <p class="sec-sub">No single clue convicts a coin. We stack them, then let time decide who was first.</p>
+    </header>
+    <ol class="signals">
+      <li class="reveal"><span class="sig-n mono">I</span><h3>Ticker</h3><p>Exact and near tickers. $WIF, $WIFHAT and $W1F all land in the same net.</p></li>
+      <li class="reveal"><span class="sig-n mono">II</span><h3>Name</h3><p>Fuzzy word and spelling matches, so a renamed copy can't hide behind a typo.</p></li>
+      <li class="reveal"><span class="sig-n mono">III</span><h3>Logo</h3><p>Every image gets a perceptual fingerprint, in your browser. Crops, filters and recolours still match.</p></li>
+      <li class="reveal"><span class="sig-n mono">IV</span><h3>Narrative</h3><p>The on-chain description, weighed term by term against every earlier coin's story.</p></li>
+      <li class="reveal"><span class="sig-n mono">V</span><h3>Socials</h3><p>Reused X accounts, communities, sites and Telegram links. The loudest giveaway of all.</p></li>
+    </ol>
+    <div class="method-note reveal">
+      <p>Then we order everything by launch time and weigh real traction, meaning market cap backed by actual liquidity. The verdict always says <em>likely</em>. Two teams can land on the same meme by coincidence, so every call comes with its receipts.</p>
+    </div>
+  </section>
+
+  <!-- ─────────── FIELD NOTES (reserved for X) ─────────── -->
+  <section class="field section" id="field">
+    <header class="sec-head reveal">
+      <span class="sec-no mono">03</span>
+      <h2 class="sec-title">Field <em>notes</em></h2>
+      <p class="sec-sub">Daily vamp reports and the biggest copycats of the week, posted on X.</p>
+    </header>
+    <div class="field-grid">
+      <div class="x-slot reveal" id="xFeedSlot" aria-label="X feed">
+        <div class="x-slot-inner">
+          <svg class="x-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.7 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.7 3Zm-1.1 16.2h1.7L7.5 4.7H5.7l10.9 14.5Z"/></svg>
+          <p class="x-slot-title">The feed opens soon.</p>
+          <p class="x-slot-sub">Posts from our X account will appear here.</p>
+        </div>
+      </div>
+      <div class="x-cta reveal">
+        <p class="x-cta-big">Catch the copy <em>before</em> it catches you.</p>
+        <a class="btn-primary" data-x-follow href="#field"><span data-x-label>Follow on X</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
+        <p class="x-cta-note mono" data-x-handle>@ handle coming soon</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-big" data-site="name" aria-hidden="true">Vamp Hunter</div>
+  <div class="foot-row">
+    <p>Likely is not certain. This is research, not financial advice, and never an accusation. Do your own research.</p>
+    <p class="mono">Data · DexScreener · Solana RPC · IPFS</p>
+    <a href="#top" class="mono">Back to top ↑</a>
+  </div>
+</footer>
+</body>
+</html>
